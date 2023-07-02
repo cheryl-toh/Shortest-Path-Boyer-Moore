@@ -1,3 +1,4 @@
+
 public class BoyerMooreAlgorithm {
 
     public int[] badCharacterShiftTable(char[] pattern){
@@ -14,7 +15,7 @@ public class BoyerMooreAlgorithm {
         //update shift table with correct shift value
         for (int i = 0; i < m - 1; i++) {
             char c = pattern[i];
-            shiftTable[c] = m - i - 1;
+            shiftTable[c] = m-i-1;
         }
 
         return shiftTable;
@@ -68,8 +69,7 @@ public class BoyerMooreAlgorithm {
         //make y the widest suffix border
         y = borderTable[0];
 
-        for(x = 0; x <= m; x++)
-        {
+        for(x = 0; x <= m; x++) {
         //if shift table has any value that has not been filled, update with widest border value
             if(shiftTable[x] == 0)
                 shiftTable[x] = y;
@@ -110,7 +110,7 @@ public class BoyerMooreAlgorithm {
                 s += goodSuffixShift[0];
             } else {
                 //if mismatch is found, compute shift values for both heuristics
-                int badCharShiftValue = badCharacterShift[text[s+j] -m+1+j];
+                int badCharShiftValue = badCharacterShift[text[s+j]-m+1+j];
                 int goodSuffixShiftValue = goodSuffixShift[j+1];
 
                 //use shift value with the largest shift
