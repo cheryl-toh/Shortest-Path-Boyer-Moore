@@ -2,7 +2,7 @@ import java.util.*;
 
 class ShortestPathFinding{
 
-    int[] dist;
+    int[] dist,pred;
     Set<Integer> visited;
     PriorityQueue<Node> pqueue;
     int V; // Number of Vertices
@@ -12,6 +12,7 @@ class ShortestPathFinding{
     ShortestPathFinding(int V){
         this.V = V;
         dist = new int[V];
+        pred = new int[V];
         visited = new HashSet<>();
         pqueue = new PriorityQueue<>(V,new Node());
     }
@@ -21,6 +22,7 @@ class ShortestPathFinding{
 
         for (int i = 0; i < V; i++) {
             dist[i] = Integer.MAX_VALUE;
+            pred[i] = -1;
         }
 
         // Add Source Vertex into Priority Queue
@@ -35,9 +37,11 @@ class ShortestPathFinding{
 
         }
 
-        System.out.println("Source\t" + "Node#\t\t" + "Distance\t\t");
+        System.out.println("Source\t" + "Node#\t\t" + "Distance\t\t" + "Path");
         for (int i = 0; i < V; i++){
-            System.out.println("\t" + src + "\t\t" + i + "\t\t" + dist[i]);
+            System.out.print("\t" + src + "\t\t" + i + "\t\t" + dist[i] + "\t\t\t\t");
+            printPath(i);
+            System.out.println();
         }
 
     }
@@ -59,10 +63,19 @@ class ShortestPathFinding{
                 // Compare Distances
                 if (newDistance < dist[v.node]){
                     dist[v.node] = newDistance;
+                    pred[v.node] = u;
                 }
                 pqueue.add(new Node(v.node, dist[v.node]));
             }
         }
+    }
+
+    private void printPath(int node){
+        if (node == -1)
+            return;
+
+        printPath(pred[node]);
+        System.out.print(node+" ");
     }
 
 }
